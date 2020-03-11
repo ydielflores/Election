@@ -14,7 +14,8 @@ public class FileManager {
 	public  File ballots2;
 	public  File candidates;
 	public Ballot ballot;
-	public LinkedList<Candidate> listOfCandidates;
+	public LinkedList<Candidate> listOfCandidates = new LinkedList<Candidate>();
+	public LinkedList<Candidate> listToPrint = new LinkedList<Candidate>();
 	public Candidate candidate;
 
 	public FileManager () {
@@ -31,28 +32,33 @@ public class FileManager {
 			System.out.println(sc.nextLine());
 		}
 	}
+	
+	
 	//This method builds every ballot in the file.
 	@SuppressWarnings("resource")
-	public void ballotBuilder(File file) throws FileNotFoundException {
-
+	public LinkedList<Ballot> ballotBuilder(File file) throws FileNotFoundException {
+		
+		LinkedList<Ballot> ballotList = new LinkedList<Ballot>();
 		Scanner sc = new Scanner(file);
-
 		String editor;
-		int ballotID;
 
 		while(sc.hasNextLine()) {
 			editor = sc.nextLine();
-			//ballotID = breakID(editor);
-			//System.out.println(ballotID);
-			//ballot = new Ballot(sc.nextLine());
+			listOfCandidates.clear();
 			if(hasVotes(editor) > 0) {
-				new Ballot(breakID(editor),
+				System.out.println("Here comes a new Ballot! \n");
+				
+				ballot = new Ballot(breakID(editor),
 						breakIntoCandidates(editor.substring(hasVotes(editor) + 1, 
 								editor.length())));
+				ballotList.add(ballot);
 			}else {
-				new Ballot(breakID(editor), null);
+				ballot = new Ballot(breakID(editor), null);
+				ballotList.add(ballot);
 			}
 		}
+		
+		return ballotList;
 	}
 	
 	//This method finds the ID of the ballot.
@@ -83,20 +89,30 @@ public class FileManager {
 	//This method builds a list of the Candidates in the ballot.
 	private LinkedList<Candidate> breakIntoCandidates(String s){
 		if(hasVotes(s) > 0) {
-			return breakIntoCandidatesHelper(s);
+			listToPrint = breakIntoCandidatesHelper(s);
+			printList(listToPrint);
+			return listToPrint;
 		}
 		return null;
 	}
 	private LinkedList<Candidate> breakIntoCandidatesHelper(String s) {
-		if(s.length() == 0) {
+		
+		if(hasVotes(s) < 0) {
+			candidate = new Candidate(breakIntoCandidateID(s), breakIntoCandidateRank(s));
+			listOfCandidates.add(candidate);
 			return listOfCandidates;
 		}else {
 			candidate = new Candidate(breakIntoCandidateID(s), breakIntoCandidateRank(s));
 			listOfCandidates.add(candidate);
-			return breakIntoCandidatesHelper(s.substring(hasVotes(s),s.length()));
+			return breakIntoCandidatesHelper(s.substring(hasVotes(s) + 1,s.length()));
 		}
 	}
-
+	
+	private void printList(LinkedList<Candidate> list) {
+		for(Candidate c : list) {
+			System.out.println("The candidate ID is: " + c.getCandidateID() + " and the casted vote in this ballot was: " + c.getRank());
+		}
+	}
 	
 
 

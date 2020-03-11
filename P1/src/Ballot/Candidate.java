@@ -2,11 +2,11 @@ package Ballot;
 
 public class Candidate {
 	
-	int candidateID, vote;
+	int candidateID, rank;
 	
-	public Candidate(int candidateID, int vote) {
+	public Candidate(int candidateID, int rank) {
 		this.candidateID = candidateID;
-		this.vote = vote;
+		this.rank = rank;
 	}
 
 	public int getCandidateID() {
@@ -17,12 +17,12 @@ public class Candidate {
 		this.candidateID = candidateID;
 	}
 
-	public int getVote() {
-		return vote;
+	public int getRank() {
+		return rank;
 	}
 
-	public void setVote(int vote) {
-		this.vote = vote;
+	public void setVote(int rank) {
+		this.rank = rank;
 	}
 	
 	
