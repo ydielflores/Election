@@ -57,7 +57,7 @@ public class FileManager {
 				ballotList.add(ballot);
 			}
 		}
-		
+		printBallotList(ballotList);
 		return ballotList;
 	}
 	
@@ -114,6 +114,10 @@ public class FileManager {
 		}
 	}
 	
-
+	public void printBallotList(LinkedList<Ballot> list) {
+		for(Ballot b : list) {
+			System.out.println("Ballots ID in this list: " + b.getBallotNum());
+		}
+	}
 
 }

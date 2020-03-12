@@ -13,7 +13,8 @@ public class Election {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 //		file.readBallot(file.ballots);
-		file.ballotBuilder(file.ballots);
+		//file.ballotBuilder(file.ballots);
+		file.ballotBuilder(file.ballots2);
 //		System.out.println("\n");
 //		System.out.println("Next Ballot: ");
 //		file.readBallot(file.ballots2);

@@ -42,7 +42,6 @@ public class Ballot {
 	}
 	
 	public boolean eliminate(int candidateId) {
-		
 		return false; 
 	}
 	
