@@ -8,14 +8,14 @@ import DataStructures.LinkedList.LinkedList;
 public class Ballot {
 	
 	int ID;
-	LinkedList<Candidate> castedVotes = new LinkedList<Candidate>();
+	LinkedList<Ranking> castedVotes = new LinkedList<Ranking>();
 	
-	public Ballot(int ID, LinkedList<Candidate> castedVotes) throws FileNotFoundException {
+	public Ballot(int ID, LinkedList<Ranking> castedVotes) throws FileNotFoundException {
 		this.ID = ID;
 		this.castedVotes = castedVotes;
 	}
 	
-	public LinkedList<Candidate> getCastedVotes(){
+	public LinkedList<Ranking> getCastedVotes(){
 		return this.castedVotes;
 	}
 	public int getBallotNum() {
@@ -24,7 +24,7 @@ public class Ballot {
 	
 	public int getRankByCandidate(int candidateId) {
 		
-		for(Candidate c : getCastedVotes()) {
+		for(Ranking c : getCastedVotes()) {
 			if(c.getCandidateID() == candidateId) {
 				return c.getRank();
 			}
@@ -33,7 +33,7 @@ public class Ballot {
 	}
 	
 	public int getCandidateByRank(int rank) {
-		for(Candidate c : getCastedVotes()) {
+		for(Ranking c : getCastedVotes()) {
 			if(c.getRank() == rank) {
 				return c.getCandidateID();
 			}

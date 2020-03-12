@@ -1,12 +1,21 @@
 package Ballot;
 
 public class Candidate {
+
+	String candidateName;
+	int candidateID;
 	
-	int candidateID, rank;
-	
-	public Candidate(int candidateID, int rank) {
+	public Candidate(String candidateName, int candidateID) {
+		this.candidateName = candidateName;
 		this.candidateID = candidateID;
-		this.rank = rank;
+	}
+
+	public String getCandidateName() {
+		return candidateName;
+	}
+
+	public void setCandidateName(String candidateName) {
+		this.candidateName = candidateName;
 	}
 
 	public int getCandidateID() {
@@ -16,14 +25,4 @@ public class Candidate {
 	public void setCandidateID(int candidateID) {
 		this.candidateID = candidateID;
 	}
-
-	public int getRank() {
-		return rank;
-	}
-
-	public void setVote(int rank) {
-		this.rank = rank;
-	}
-	
-	
 }
