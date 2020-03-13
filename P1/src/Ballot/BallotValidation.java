@@ -3,44 +3,99 @@ package Ballot;
 import DataStructures.LinkedList.LinkedList;
 
 public class BallotValidation {
-	
+
 	int amountOfInvalidBallots = 0, totalBallots = 0;
 	LinkedList<Ballot> ballotList = new LinkedList<Ballot>();
 	LinkedList<Candidate> candidateList = new LinkedList<Candidate>();
-	
+	LinkedList<Ballot> ballotsToRemove = new LinkedList<Ballot>();
+
+	/*This class validates the ballots in the file.
+	 * 
+	 */
 	public BallotValidation(LinkedList<Ballot> ballotList,LinkedList<Candidate> candidateList) {
 		this.ballotList   = ballotList;
 		this.totalBallots = ballotList.size(); 
 		this.candidateList = candidateList;
 	}
-	/*ranking repetido, votar por el mismo candidato mas de una vez, 
-	 * que el ranking mayor sea mayor que la cantidad de candidatos,
-	 * el ranking no puede ser menor que 1, 
-	 * el size del ballo te dice hasta donde llega el ranking
-	 */
-	public void validation(LinkedList<Ballot> list) {
-		
+	//This is where validation starts.
+	public void validation() {
+		validateDuplicateCandidatesAndDuplicateRanks();
+		remove();
+		validateEmptyAndAmountOfVotes();
+		remove();
+		validateSkippedRankAndEmpty();
+		remove();
 	}
-//	public void 
-//	public void validationRepeatedCandidateAndRepeatedRank(LinkedList<Ballot> list) {
-//		for(Ballot b : list) {
-//			for(int i = 0; i < b.getCastedVotes().size(); i++) {
-//					for(int j = 0; j < b.getCastedVotes().size(); j++) {
-//						if(j!=i) {
-//							if(b.getCastedVotes().get(i).getCandidateID() == b.getCastedVotes().get(j).getCandidateID() || ) {
-//								
-//							}
-//						}
-//				}
-//			}
-//		}
-//	}
-//	private void validationBy
-	
-	
-	
-	
-	
+	//This method checks for repeated candidates and ranks.
+	private void validateDuplicateCandidatesAndDuplicateRanks(){
+		for(Ballot b : getBallotList()) {
+			for(int i = 0; i < b.getCastedVotes().size(); i++) {
+				for(int j = 0; j < b.getCastedVotes().size(); j++) {
+					if(i!=j) {
+						if(b.getCastedVotes().get(i).getCandidateID() == b.getCastedVotes().get(j).getCandidateID() || b.getCastedVotes().get(i).getRank() == b.getCastedVotes().get(j).getRank()) {
+							if(!ballotsToRemove.contains(b)) {
+								ballotsToRemove.add(b);
+							}
+
+						}
+					}
+				}
+			}
+		}
+	}
+	//This method checks for empty ballots and if the ballot contains more votes than candidates. AKA more votes than the ones allowed
+	private void validateEmptyAndAmountOfVotes(){
+
+		//With this first loop I tackle the ballots where no ranking was casted AKA an empty ballot.
+		for(Ballot b : getBallotList()) {
+			if(b.getCastedVotes().size() == 0) {
+				ballotsToRemove.add(b);
+				continue;
+				/*With this if, if the size of the casted votes is bigger than the size of the list of 
+				 * candidates then this means that the voter voted for more candidates than the ones that are available
+				 */	
+
+			}else if(b.getCastedVotes().size() > getCandidateList().size()) {
+				ballotsToRemove.add(b);
+				continue;
+			}
+		}
+	}
+
+	private void validateSkippedRankAndEmpty() {
+		int rankOrderCheck = 0;
+		for(Ballot b : getBallotList()) {
+
+			for(int i = 0; i < b.getCastedVotes().size(); i++) {
+				rankOrderCheck++;
+				if(b.getCastedVotes().get(i).getRank() != rankOrderCheck) {
+					ballotsToRemove.add(b);
+					break;
+				}
+			}
+			rankOrderCheck = 0;
+
+		}
+	}
+
+	//The method that removes invalid ballots and counts them.
+	private void remove() {
+
+		for(Ballot b : ballotsToRemove) {
+			getBallotList().remove(b);
+			amountOfInvalidBallots++;
+		}
+		ballotsToRemove.clear();
+	}
+
+	/*This next method gets you the candidateList*/
+	public LinkedList<Candidate> getCandidateList() {
+		return candidateList;
+	}
+	/*This method lets you set the candidateList*/
+	public void setCandidateList(LinkedList<Candidate> candidateList) {
+		this.candidateList = candidateList;
+	}
 	/*This method gets you the amount of total ballots in this batch.*/
 	public int getTotalBallots() {
 		return totalBallots;
@@ -57,5 +112,5 @@ public class BallotValidation {
 	public void setBallotList(LinkedList<Ballot> ballotList) {
 		this.ballotList = ballotList;
 	}
-	
+
 }
