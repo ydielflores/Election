@@ -2,14 +2,16 @@ package Main;
 
 import Ballot.Ballot;
 import Ballot.Candidate;
+import Ballot.RankAndBallotID;
 import Ballot.RegroupCandidates;
 import DataStructures.LinkedList.LinkedList;
 
 public class VotingProcess {
 	
-	LinkedList<Ballot> ballotList;
-	LinkedList<Candidate> candidateList;
-	LinkedList<RegroupCandidates> regroupCandidates = new LinkedList<RegroupCandidates>();
+	public LinkedList<Ballot> ballotList;
+	public LinkedList<Candidate> candidateList;
+	private LinkedList<RegroupCandidates> regroupCandidates = new LinkedList<RegroupCandidates>();
+	private LinkedList<RankAndBallotID> listOfRanksAndBallotID = new LinkedList<RankAndBallotID>();
 	
 	
 	public VotingProcess(LinkedList<Ballot> ballotList, LinkedList<Candidate> candidateList) {
@@ -26,35 +28,40 @@ public class VotingProcess {
 	
 	private void regroupCandidates(LinkedList<Ballot> ballotList) {
 		//RegroupCandidates candidateToRegroup;
-		LinkedList<Integer> listOfRanks = new LinkedList<Integer>();
+		
+		RankAndBallotID rankAndBallotID;
 		for(int i = 1; i < getCandidateList().size()+1; i++){
-			
+			listOfRanksAndBallotID.clear();
 				for(Ballot b : ballotList) {
 					for(int j = 0; j < b.getCastedVotes().size(); j++) {
 						if(b.getCastedVotes().get(j).getCandidateID() == i) {
-							listOfRanks.add(b.getCastedVotes().get(j).getRank());
+							rankAndBallotID = new RankAndBallotID(b.getBallotNum(), b.getCastedVotes().get(j).getRank());
+							listOfRanksAndBallotID.add(rankAndBallotID);
 							break;
 						}
 					}
 				}
-				//candidateToRegroup = new RegroupCandidates(i,listOfRanks);
-				regroupCandidates.add(new RegroupCandidates(i, listOfRanks));
+				regroupCandidates.add(new RegroupCandidates(i, listOfRanksAndBallotID));
 				
 		}
+	}
+	
+	private void addToListOfRanksAndBallotID(RankAndBallotID obj) {
+		
 	}
 	
 	private void printRegroup(LinkedList<RegroupCandidates> list) {
 		
 		for(RegroupCandidates rc : list) {
 			System.out.println(rc.getCandidateID());
-			printRanks(rc.getListOfRanks());
+			printRanks(rc.getRankAndBallotID());
 			System.out.println("\n");
 		}
 	}
 	
-	private void printRanks(LinkedList<Integer> list) {
-		for(Integer i : list) {
-			System.out.println(i);
+	private void printRanks(LinkedList<RankAndBallotID> list) {
+		for(RankAndBallotID rABI : list) {
+			System.out.println("The ballot for this vote was: " + rABI.getBallotID() + ", And the rank was: " + rABI.getRank());
 		}
 	}
 	

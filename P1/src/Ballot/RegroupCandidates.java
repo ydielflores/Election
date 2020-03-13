@@ -5,17 +5,18 @@ import DataStructures.LinkedList.LinkedList;
 public class RegroupCandidates {
 	
 		int candidateID;
-		LinkedList<Integer> listOfRanks;
+		LinkedList<RankAndBallotID> rankAndBallotID;
+		int ballotID;
 		
-	public RegroupCandidates(int candidateID, LinkedList<Integer> listOfRanks) {
+	public RegroupCandidates(int candidateID, LinkedList<RankAndBallotID> rankAndBallotID) {
 		this.candidateID = candidateID;
-		this.listOfRanks = listOfRanks;
+		this.rankAndBallotID = rankAndBallotID;
 	}
 	
 	public int getAmountOf(int rank) {
 		int count = 0;
-		for(int i = 0; i < getListOfRanks().size(); i++) {
-			if(getListOfRanks().get(i) == i) {
+		for(int i = 0; i < getRankAndBallotID().size(); i++) {
+			if(getRankAndBallotID().get(i).getRank() == rank) {
 				count++;
 			}
 		}
@@ -26,9 +27,12 @@ public class RegroupCandidates {
 		return candidateID;
 	}
 
-	public LinkedList<Integer> getListOfRanks() {
-		return listOfRanks;
+	public LinkedList<RankAndBallotID> getRankAndBallotID() {
+		return rankAndBallotID;
 	}
 	
+	public int getBallotID(){
+		return ballotID;
+	}
 	
 }

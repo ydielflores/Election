@@ -30,13 +30,13 @@ public class Election {
 		toPrint = ballotValidation.getBallotList();
 		//printList(toPrint);
 	}
-	public static void printRegrouped(LinkedList<RegroupCandidates> toPrint) {
-		for(RegroupCandidates rc : toPrint) {
-			System.out.println(rc.getCandidateID());
-			printRankList(rc.getListOfRanks());
-			System.out.println("\n");
-		}
-	}
+//	public static void printRegrouped(LinkedList<RegroupCandidates> toPrint) {
+//		for(RegroupCandidates rc : toPrint) {
+//			System.out.println(rc.getCandidateID());
+//			printRankList(rc.getListOfRanks());
+//			System.out.println("\n");
+//		}
+//	}
 	public static void printRankList(LinkedList<Integer> toPrint) {
 		for(Integer i : toPrint) {
 			System.out.println(i);
