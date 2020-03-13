@@ -8,6 +8,7 @@ public class BallotValidation {
 	LinkedList<Ballot> ballotList = new LinkedList<Ballot>();
 	LinkedList<Candidate> candidateList = new LinkedList<Candidate>();
 	LinkedList<Ballot> ballotsToRemove = new LinkedList<Ballot>();
+	
 
 	/*This class validates the ballots in the file.
 	 * 
@@ -16,16 +17,25 @@ public class BallotValidation {
 		this.ballotList   = ballotList;
 		this.totalBallots = ballotList.size(); 
 		this.candidateList = candidateList;
+		
+		validation();
 	}
 	//This is where validation starts.
-	public void validation() {
+	public LinkedList<Ballot> validation() {
 		validateDuplicateCandidatesAndDuplicateRanks();
 		remove();
 		validateEmptyAndAmountOfVotes();
 		remove();
 		validateSkippedRankAndEmpty();
 		remove();
+		
+		return getBallotList();
 	}
+
+	
+
+
+
 	//This method checks for repeated candidates and ranks.
 	private void validateDuplicateCandidatesAndDuplicateRanks(){
 		for(Ballot b : getBallotList()) {
@@ -113,4 +123,16 @@ public class BallotValidation {
 		this.ballotList = ballotList;
 	}
 
+	private void print(LinkedList<Ballot> list) {
+		for(Ballot b : list) {
+			System.out.println("Here Comes a new Ballot! ");
+			System.out.println(b.getBallotNum());
+			printVotes(b.getCastedVotes());
+		}
+	}
+	private void printVotes(LinkedList<Ranking> list) {
+		for(Ranking r : list) {
+			System.out.println("Candidate :" + r.getCandidateID() + " Rank: " + r.getRank());
+		}
+	}
 }
