@@ -10,7 +10,7 @@ public class BallotValidation {
 	LinkedList<Ballot> ballotsToRemove = new LinkedList<Ballot>();
 	
 
-	/*This class validates the ballots in the file.
+	/**This class receives two list. One of them is supposed to give
 	 * 
 	 */
 	public BallotValidation(LinkedList<Ballot> ballotList,LinkedList<Candidate> candidateList) {
@@ -21,7 +21,7 @@ public class BallotValidation {
 		validation();
 	}
 	//This is where validation starts.
-	public LinkedList<Ballot> validation() {
+	private LinkedList<Ballot> validation() {
 		validateDuplicateCandidatesAndDuplicateRanks();
 		remove();
 		validateEmptyAndAmountOfVotes();

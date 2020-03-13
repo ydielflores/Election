@@ -6,7 +6,7 @@ public class RegroupCandidates {
 	
 		int candidateID;
 		LinkedList<RankAndBallotID> rankAndBallotID;
-		int ballotID;
+		
 		
 	public RegroupCandidates(int candidateID, LinkedList<RankAndBallotID> rankAndBallotID) {
 		this.candidateID = candidateID;
@@ -31,8 +31,5 @@ public class RegroupCandidates {
 		return rankAndBallotID;
 	}
 	
-	public int getBallotID(){
-		return ballotID;
-	}
 	
 }

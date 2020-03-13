@@ -10,28 +10,28 @@ public class VotingProcess {
 	
 	public LinkedList<Ballot> ballotList;
 	public LinkedList<Candidate> candidateList;
-	private LinkedList<RegroupCandidates> regroupCandidates = new LinkedList<RegroupCandidates>();
-	private LinkedList<RankAndBallotID> listOfRanksAndBallotID = new LinkedList<RankAndBallotID>();
 	
 	
+	/**This class should only accept the ballotList already validated.
+	 * 
+	 */
 	public VotingProcess(LinkedList<Ballot> ballotList, LinkedList<Candidate> candidateList) {
 		this.ballotList = ballotList;
 		this.candidateList = candidateList;
-		
 		start();
 	}
 
 	public void start() {
-		regroupCandidates(getBallotList());
-		printRegroup(regroupCandidates);
+		printRegroup(regroupCandidatesMethod(getBallotList()));
 	}
 	
-	private void regroupCandidates(LinkedList<Ballot> ballotList) {
+	private LinkedList<RegroupCandidates> regroupCandidatesMethod(LinkedList<Ballot> ballotList) {
 		//RegroupCandidates candidateToRegroup;
-		
+		LinkedList<RegroupCandidates> regroupCandidates = new LinkedList<RegroupCandidates>();
+		RegroupCandidates candidateIDandVotesReceived;
 		RankAndBallotID rankAndBallotID;
 		for(int i = 1; i < getCandidateList().size()+1; i++){
-			listOfRanksAndBallotID.clear();
+			LinkedList<RankAndBallotID> listOfRanksAndBallotID = new LinkedList<RankAndBallotID>();
 				for(Ballot b : ballotList) {
 					for(int j = 0; j < b.getCastedVotes().size(); j++) {
 						if(b.getCastedVotes().get(j).getCandidateID() == i) {
@@ -41,13 +41,19 @@ public class VotingProcess {
 						}
 					}
 				}
-				regroupCandidates.add(new RegroupCandidates(i, listOfRanksAndBallotID));
+				//placeHolder = listOfRanksAndBallotID;
+				candidateIDandVotesReceived = new RegroupCandidates(i, listOfRanksAndBallotID);
+				
+				addIntoRegroupCandidates(regroupCandidates, candidateIDandVotesReceived);
+				
 				
 		}
+		
+		return regroupCandidates;
 	}
 	
-	private void addToListOfRanksAndBallotID(RankAndBallotID obj) {
-		
+	private void addIntoRegroupCandidates(LinkedList<RegroupCandidates> regroupCandidate, RegroupCandidates candidateIDandVotesReceived) {
+		regroupCandidate.add(candidateIDandVotesReceived);
 	}
 	
 	private void printRegroup(LinkedList<RegroupCandidates> list) {
@@ -73,9 +79,6 @@ public class VotingProcess {
 	
 	
 	
-	public LinkedList<RegroupCandidates> getRegroupCandidates(){
-		return regroupCandidates;
-	}
 	
 	public LinkedList<Ballot> getBallotList() {
 		return ballotList;
