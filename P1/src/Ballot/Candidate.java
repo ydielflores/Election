@@ -1,5 +1,8 @@
 package Ballot;
 
+	/**This class creates an object that saves the candidate name 
+	 * and the candidateID.
+	 */
 public class Candidate {
 
 	String candidateName;
@@ -9,7 +12,7 @@ public class Candidate {
 		this.candidateName = candidateName;
 		this.candidateID = candidateID;
 	}
-
+	
 	public String getCandidateName() {
 		return candidateName;
 	}

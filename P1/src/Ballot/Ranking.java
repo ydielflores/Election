@@ -1,5 +1,11 @@
 package Ballot;
 
+
+/**
+ * 
+ * This class matches up a candidateID with their rank in a ballot.
+ *
+ */
 public class Ranking {
 	
 	int candidateID, rank;

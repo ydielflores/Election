@@ -1,0 +1,8 @@
+Number of Ballots: 15
+Number of Blank Ballots: 2
+Number of Invalid Ballots :3
+In round 1, Lola Mento was eliminated with 1
+In round 2, Juan Lopez was eliminated with 1
+In round 3, Pardeep Kumar was eliminated with 1
+In round 4, Pucho Avellanet was eliminated with 1
+Winner is Pepe Perez with 4

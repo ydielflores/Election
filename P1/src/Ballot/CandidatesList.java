@@ -1,7 +1,11 @@
 package Ballot;
 
 import DataStructures.LinkedList.LinkedList;
-
+/**
+ * 
+ *This class saves Candidates.
+ *
+ */
 public class CandidatesList {
 	
 	LinkedList<String> candidateList = new LinkedList<String>();

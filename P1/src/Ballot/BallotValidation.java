@@ -2,17 +2,21 @@ package Ballot;
 
 import DataStructures.LinkedList.LinkedList;
 
+/**
+ * BallotValidation receives two lists, one of them is the candidateList 
+ * and the other is the ballotList. The BallotValidation class validates every
+ * every ballot in the ballot list and removes the ones that are invalid. 
+ * 
+ */
 public class BallotValidation {
 
-	int amountOfInvalidBallots = 0, totalBallots = 0;
+	int amountOfInvalidBallots = 0, totalBallots = 0, blanckBallots = 0;
 	LinkedList<Ballot> ballotList = new LinkedList<Ballot>();
 	LinkedList<Candidate> candidateList = new LinkedList<Candidate>();
 	LinkedList<Ballot> ballotsToRemove = new LinkedList<Ballot>();
 	
 
-	/**This class receives two list. One of them is supposed to give
-	 * 
-	 */
+	
 	public BallotValidation(LinkedList<Ballot> ballotList,LinkedList<Candidate> candidateList) {
 		this.ballotList   = ballotList;
 		this.totalBallots = ballotList.size(); 
@@ -20,13 +24,14 @@ public class BallotValidation {
 		
 		validation();
 	}
+	
 	//This is where validation starts.
 	private LinkedList<Ballot> validation() {
 		validateDuplicateCandidatesAndDuplicateRanks();
 		remove();
 		validateEmptyAndAmountOfVotes();
 		remove();
-		validateSkippedRankAndEmpty();
+		validateSkippedRank();
 		remove();
 		
 		return getBallotList();
@@ -36,7 +41,9 @@ public class BallotValidation {
 
 
 
-	//This method checks for repeated candidates and ranks.
+	/**
+	 * This method checks for repeated candidates and ranks.
+	 */
 	private void validateDuplicateCandidatesAndDuplicateRanks(){
 		for(Ballot b : getBallotList()) {
 			for(int i = 0; i < b.getCastedVotes().size(); i++) {
@@ -53,13 +60,16 @@ public class BallotValidation {
 			}
 		}
 	}
-	//This method checks for empty ballots and if the ballot contains more votes than candidates. AKA more votes than the ones allowed
+	/**
+	 * This method checks for empty ballots and if the ballot contains more votes than candidates. AKA more votes than the ones allowed
+	 */
 	private void validateEmptyAndAmountOfVotes(){
 
 		//With this first loop I tackle the ballots where no ranking was casted AKA an empty ballot.
 		for(Ballot b : getBallotList()) {
 			if(b.getCastedVotes().size() == 0) {
-				ballotsToRemove.add(b);
+				getBallotList().remove(b);
+				blanckBallots++;
 				continue;
 				/*With this if, if the size of the casted votes is bigger than the size of the list of 
 				 * candidates then this means that the voter voted for more candidates than the ones that are available
@@ -71,8 +81,10 @@ public class BallotValidation {
 			}
 		}
 	}
-
-	private void validateSkippedRankAndEmpty() {
+	/*
+	 * This method looks for skipped ranks.
+	 */
+	private void validateSkippedRank() {
 		int rankOrderCheck = 0;
 		for(Ballot b : getBallotList()) {
 
@@ -122,17 +134,7 @@ public class BallotValidation {
 	public void setBallotList(LinkedList<Ballot> ballotList) {
 		this.ballotList = ballotList;
 	}
-
-	private void print(LinkedList<Ballot> list) {
-		for(Ballot b : list) {
-			System.out.println("Here Comes a new Ballot! ");
-			System.out.println(b.getBallotNum());
-			printVotes(b.getCastedVotes());
-		}
-	}
-	private void printVotes(LinkedList<Ranking> list) {
-		for(Ranking r : list) {
-			System.out.println("Candidate :" + r.getCandidateID() + " Rank: " + r.getRank());
-		}
+	public int getBlanckBallots() {
+		return blanckBallots;
 	}
 }

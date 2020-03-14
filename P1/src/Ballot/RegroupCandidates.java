@@ -2,6 +2,12 @@ package Ballot;
 
 import DataStructures.LinkedList.LinkedList;
 
+/**
+ * This class creates and object that saves the Candidate ID 
+ * and a list that contains all the ranks this candidate
+ * received during the campaign.
+ *
+ */
 public class RegroupCandidates {
 	
 		int candidateID;
@@ -13,6 +19,11 @@ public class RegroupCandidates {
 		this.rankAndBallotID = rankAndBallotID;
 	}
 	
+	/**This method counts the amount of ranks a candidate received in the entire campaign.
+	 * 
+	 * @param rank - the rank you wish to count.
+	 * @return int - the amount of times the candidate received the rank.
+ 	 */
 	public int getAmountOf(int rank) {
 		int count = 0;
 		for(int i = 0; i < getRankAndBallotID().size(); i++) {

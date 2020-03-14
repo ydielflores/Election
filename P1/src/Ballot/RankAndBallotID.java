@@ -1,5 +1,8 @@
 package Ballot;
 
+	/**This class creates an object that is able to save the combination
+	 * of ballotID and a rank 'x' candidate received in a 'y' ballot;
+	 */
 public class RankAndBallotID {
 	
 	int ballotID;

@@ -18,11 +18,13 @@ public class FileManager {
 	public Ballot ballot;
 	public Ranking ranking;
 
-
+	/*
+	 * This class is the one responsible for breaking down the files.
+	 */
 	public FileManager () {
 
 		ballots  = new File("res/Ballots/ballots.csv");
-		ballots2 = new File("res/Ballots/ballots2.csv");
+		ballots2 = new File("res/Ballots/ballots2.1.csv");
 		candidates = new File("res/Candidates/candidates.csv");
 
 	}

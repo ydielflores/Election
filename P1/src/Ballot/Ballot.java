@@ -4,7 +4,12 @@ import java.io.FileNotFoundException;
 import DataStructures.LinkedList.LinkedList;
 
 
-
+/**
+ * The Ballot class is able to save the ballotID and the votes that were casted in 
+ * 'x' ballot.
+ * 
+ *
+ */
 public class Ballot {
 	
 	int ID;
@@ -40,10 +45,14 @@ public class Ballot {
 		}
 		return -1;
 	}
-	
+	//This method eliminates a member by turning its rank to zero.
 	public boolean eliminate(int candidateId) {
+		for(Ranking r : getCastedVotes()) {
+			if(r.getCandidateID() == candidateId && r.getRank() == 1) {
+				r.setVote(0);
+				return true;
+			}
+		}
 		return false; 
 	}
-	
-	
 }
